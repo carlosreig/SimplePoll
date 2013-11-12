@@ -1,0 +1,26 @@
+<p>{{ choice.title }}</p>
+
+{% if choice.multipleChoice %}
+
+		{% for element in choice.elements %}
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="choice_{{choice.idField}}_{{element.idOption}}"> {{ element.label }}
+			</label>
+		</div>
+
+		{% endfor %}
+
+{% else %}
+
+		{% for element in choice.elements %}
+		<div class="radio">
+			<label>
+				<input type="radio" name="choice_{{choice.idField}}" value="{{ element.label }}"> {{ element.label }}
+			</label>
+		</div>
+
+		{% endfor %}
+
+{% endif %}
+

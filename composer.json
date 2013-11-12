@@ -1,0 +1,18 @@
+{
+    "name": "statu/simple-poll",
+    "description": "A simple poll creator. You only have to describe the poll fields in an XML field and SimplePoll will do the rest for you.",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Carlos Reig Matut",
+            "email": "unstatu@gmail.com"
+        }
+    ],
+    "require": {
+	   "twig/twig": "1.14.2",     
+    },
+
+    "require-dev": {
+        "oodle/krumo": "dev-master"
+    }
+}

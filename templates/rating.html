@@ -1,0 +1,13 @@
+<p>{{ rating.title }}</p>
+
+<div class="radio-inline">
+
+	{% for element in rating.elements %}
+
+	<label class="radio-inline">
+		<input type="radio" id="{{rating.idField}}_{{element.idOption}}" name="rating{{rating.idField}}" value="{{ element.label }}"> {{ element.label }}
+	</label>
+
+	{% endfor %}
+
+</div>
