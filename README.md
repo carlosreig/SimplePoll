@@ -19,7 +19,7 @@ Basics
 This project allow you to create a poll very easily. You only have to describe wich fields your poll will have in an XML document and run:
 ```
 $poll = new SimplePoll();
-$poll->loadPoll('poll.xml');
+$poll->loadPoll('testData/poll.xml');
 ```
 With these lines, SimplePoll has read the document which describes the poll questions and it is ready for render the poll with the next line:
 
