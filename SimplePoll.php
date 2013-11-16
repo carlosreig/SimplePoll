@@ -61,6 +61,11 @@ class SimplePoll
 					$rating = new RatingField( $element );
 					$this->templateArray['questions'][] = $rating->getTemplateVars();
 				break;
+
+				case 'text':
+					$text = new TextField( $element );
+					$this->templateArray['questions'][] = $text->getTemplateVars();
+				break;
 			}
 		}
 	}
@@ -75,5 +80,5 @@ class SimplePoll
 }
 
 $poll = new SimplePoll();
-$poll->loadPoll('poll.xml');
+$poll->loadPoll('testData/poll.xml');
 $poll->renderPoll('poll.html');

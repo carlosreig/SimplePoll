@@ -29,14 +29,22 @@ $poll->renderPoll('poll.html');
 
 This line indicates to SimplePoll where the poll template is. I am using [Twig](http://twig.sensiolabs.org/) and [Twitter Bootstrap](http://getbootstrap.com/) as templating system and front-end-framework, so is **very easy** configure your own and beautiful poll template.
 
+Available fields
+------------------
+At the moment we have only 4 types of questions:
+*	Rating questions
+*	Option select questions
+*	Option select questions (allowing multiple selections)
+*	Text questions
+
 TODO
 -------
 I have planned three stages for this project: data recollect, data storage and data viewing
 
 Now, we are the first part of the data recollect stage. In this stage we should have a system who allows to:
 *	Define pools in an XML format (done)
-*	Present the defined pools to the user (we are here)
-*	Allow the user to fill the poll
+*	Present the defined pools to the user (done)
+*	Allow the user to fill the poll  (we are here)
 
 In the data storage stage we should have a system who allows to:
 *	Validate the info retrieved by a pool

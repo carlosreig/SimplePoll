@@ -20,6 +20,12 @@ abstract class PollField
 		return $this->templateArray;
 	}
 
+	protected function transformStringToID( $id )
+	{
+		$id = str_replace('', '-', strtolower( $id ) );
+   		return preg_replace('/[^A-Za-z0-9\-]/', '', $id );
+	}
+
 	abstract protected function parse( SimpleXMLElement &$tree );
 
 	protected $title = "";
@@ -28,9 +34,26 @@ abstract class PollField
 	static protected $fieldID = 0;
 }
 
+class TextField extends PollField
+{
+	public function __construct( SimpleXMLElement &$tree )
+	{
+		if ( $tree->getName() != 'text' )
+			throw new Exception('You have to pass a SimpleXMLElement with \'text\' as root element ');
+
+		parent::__construct( $tree );
+
+		$this->templateArray['questionType'] = 'text';
+	}
+
+	protected function parse( SimpleXMLElement &$tree )
+	{
+	}
+}
+
 abstract class SelectField extends PollField
 {
-	public function __construct(	SimpleXMLElement &$tree )
+	public function __construct( SimpleXMLElement &$tree )
 	{
 		parent::__construct( $tree );		
 	}
@@ -41,12 +64,6 @@ abstract class SelectField extends PollField
 			$choiceID = $choiceName;
 
 		$this->choices[] = array('label' => $choiceName, 'idOption' => $this->transformStringToID( $choiceID ) );
-	}
-
-	protected function transformStringToID( $id )
-	{
-		$id = str_replace('', '-', strtolower( $id ) );
-   		return preg_replace('/[^A-Za-z0-9\-]/', '', $id );
 	}
 
 	protected $choices = array();

@@ -28,6 +28,9 @@
 
     		{% elseif item.questionType == 'choice' %}
     			{% include 'choice.html' with {'choice': item} only %}
+
+        {% elseif item.questionType == 'text' %}
+          {% include 'text.html' with {'text': item} only %}
     		{% endif %}
 
     	{% endfor %}
