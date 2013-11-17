@@ -81,4 +81,4 @@ class SimplePoll
 
 $poll = new SimplePoll();
 $poll->loadPoll('testData/poll.xml');
-$poll->renderPoll('poll.html');
+$poll->renderPoll('poll.twig');
