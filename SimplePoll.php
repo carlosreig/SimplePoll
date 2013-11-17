@@ -1,6 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
+require 'PollParser.php';
 require 'PollFields.php';
 
 
@@ -15,70 +16,32 @@ class SimplePoll
 	public function loadPoll( $pollDescription )
 	{
 		$xmlTree = new SimpleXMLElement( file_get_contents( $pollDescription ) );
-
-		$this->parsePoll($xmlTree);
+		$this->pollParser = new PollParser( $xmlTree );
 	}
 
-	public function parsePoll( SimpleXMLElement $tree )
+	public function render( $templateName )
 	{
-		if ( $tree->getName() != 'poll' )
-			throw new Exception('You have to pass a SimpleXMLElement with \'poll\' as root element ');
-
-		foreach( $tree->children() as $element )
-		{
-			switch ( $element->getName() )
-			{
-				case 'title':
-					$this->templateArray['title'] = (string) $element;
-				break;
-
-				case 'description':
-					$this->templateArray['description'] = (string) $element;
-				break;
-
-				case 'questions':
-					$this->parseQuestions( $element );
-				break;
-			}
-		}
+		if ( !$_POST )
+			$this->renderPoll( $templateName );
+		else
+			$this->processResults();
 	}
 
-	public function parseQuestions( SimpleXMLElement $tree )
+	protected function renderPoll( $templateName )
 	{
-		if ( $tree->getName() != 'questions' )
-			throw new Exception('You have to pass a SimpleXMLElement with \'questions\' as root element ');
-
-		foreach( $tree->children() as $element )
-		{
-			switch ( $element->getName() )
-			{
-				case 'choice':
-					$choice = new ChoiceField( $element );
-					$this->templateArray['questions'][] = $choice->getTemplateVars();
-				break;
-
-				case 'rating':
-					$rating = new RatingField( $element );
-					$this->templateArray['questions'][] = $rating->getTemplateVars();
-				break;
-
-				case 'text':
-					$text = new TextField( $element );
-					$this->templateArray['questions'][] = $text->getTemplateVars();
-				break;
-			}
-		}
+		echo $this->twig->render( $templateName, $this->pollParser->getVarsArray() );
 	}
 
-	public function renderPoll( $templateName )
+	protected function processResults()
 	{
-		echo $this->twig->render( $templateName, $this->templateArray );
+		echo 'Gracias!';
 	}
 
 	protected $twig;
-	protected $templateArray;
+	protected $pollParser;
 }
 
 $poll = new SimplePoll();
 $poll->loadPoll('testData/poll.xml');
-$poll->renderPoll('poll.twig');
+
+$poll->render('poll.twig');
