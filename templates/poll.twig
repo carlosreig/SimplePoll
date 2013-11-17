@@ -24,13 +24,13 @@
     		
     		{% if item.questionType == 'rating' %}
 
-    			{% include 'rating.html' with {'rating': item} only %}
+    			{% include 'rating.twig' with {'rating': item} only %}
 
     		{% elseif item.questionType == 'choice' %}
-    			{% include 'choice.html' with {'choice': item} only %}
+    			{% include 'choice.twig' with {'choice': item} only %}
 
         {% elseif item.questionType == 'text' %}
-          {% include 'text.html' with {'text': item} only %}
+          {% include 'text.twig' with {'text': item} only %}
     		{% endif %}
 
     	{% endfor %}
